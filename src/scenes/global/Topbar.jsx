@@ -47,9 +47,7 @@ const Topbar = () => {
         <IconButton>
           <NotificationsOutlinedIcon sx={{ color: colors.grey[100] }} />
         </IconButton>
-        <IconButton>
-          <SettingsOutlinedIcon sx={{ color: colors.grey[100] }} />
-        </IconButton>
+      
         <IconButton>
           <PersonOutlinedIcon sx={{ color: colors.grey[100] }} />
         </IconButton>
