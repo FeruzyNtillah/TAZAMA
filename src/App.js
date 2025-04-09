@@ -4,7 +4,7 @@ import { Routes, Route } from "react-router-dom";
 import MainLayout from "./scenes/global/MainLayout"; // Fixed import path
 import Dashboard from "./scenes/dashboard";
 import Team from "./scenes/team";
-import Contacts from "./scenes/contacts";
+import TransactionReview from "./scenes/transactionreview";
 import TransactionRecords from "./scenes/transactionrecords";
 import Form from "./scenes/form";
 import Calendar from "./scenes/calendar";
@@ -25,7 +25,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/team" element={<Team />} />
-            <Route path="/contacts" element={<Contacts />} />
+            <Route path="/transactionreview" element={<TransactionReview />} />
             <Route path="/transactionrecords" element={<TransactionRecords />} />
             <Route path="/form" element={<Form />} />
             <Route path="/calendar" element={<Calendar />} />

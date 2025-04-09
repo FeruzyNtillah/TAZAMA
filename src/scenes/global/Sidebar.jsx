@@ -114,7 +114,7 @@ const SidebarComponent = () => {
                   color={colors.greenAccent[400]}
                   sx={{ fontStyle: "italic" }}
                 >
-                  Admin
+                  Fraud Analyst
                 </Typography>
               </Box>
             </Box>
@@ -129,7 +129,7 @@ const SidebarComponent = () => {
               Data
             </Typography>
             <Item title="Manage Team" to="/team" icon={<PeopleOutlinedIcon />} selected={selected} setSelected={setSelected} />
-            <Item title="Contacts Information" to="/contacts" icon={<ContactsOutlinedIcon />} selected={selected} setSelected={setSelected} />
+            <Item title="Transaction Review" to="/transactionreview" icon={<ContactsOutlinedIcon />} selected={selected} setSelected={setSelected} />
             <Item title="Transaction Records" to="/transactionrecords" icon={<ReceiptOutlinedIcon />} selected={selected} setSelected={setSelected} />
             <Typography variant="h6" 
             color={colors.grey[300]}
