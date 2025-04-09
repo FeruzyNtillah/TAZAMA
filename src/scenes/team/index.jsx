@@ -6,6 +6,7 @@ import Header from "../../components/Header";
 import AdminPanelSettingsOutlinedIcon from "@mui/icons-material/AdminPanelSettingsOutlined";
 import LockOpenOutlinedIcon from "@mui/icons-material/LockOpenOutlined";
 import SecurityOutlinedIcon from "@mui/icons-material/SecurityOutlined";
+import ShieldOutlinedIcon from "@mui/icons-material/ShieldOutlined"; // New icon for fraud analyst
 
 const Team = () => {
   const theme = useTheme();
@@ -13,55 +14,58 @@ const Team = () => {
 
   const columns = [
     { field: "id", headerName: "ID", width: 70 },
-    { 
+    {
       field: "name",
       headerName: "Name",
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    { 
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      width: 80,
-    },
-    { 
-      field: "phone",
-      headerName: "Phone Number",
-      flex: 1,
-    },
-    { 
+    {
       field: "email",
       headerName: "Email",
       flex: 1,
     },
-    { 
+    {
       field: "access",
       headerName: "Access Level",
       flex: 1,
       renderCell: ({ row: { access } }) => {
+        let bgColor;
+        let icon;
+
+        switch (access) {
+          case "fraud analyst":
+            bgColor = colors.orangeAccent[600];
+            icon = <ShieldOutlinedIcon />;
+            break;
+          case "manager":
+            bgColor = colors.blueAccent[700];
+            icon = <SecurityOutlinedIcon />;
+            break;
+          case "user":
+            bgColor = colors.greenAccent[700];
+            icon = <LockOpenOutlinedIcon />;
+            break;
+          default:
+            bgColor = colors.grey[600];
+            icon = <AdminPanelSettingsOutlinedIcon />;
+        }
+
         return (
           <Box
-            width="60%"
-            m="0 auto"
-            p="5px"
             display="flex"
-            justifyContent="center"
-            backgroundColor={
-              access === "admin"
-                ? colors.greenAccent[600]
-                : access === "manager"
-                ? colors.blueAccent[700]
-                : colors.greenAccent[700]
-            }
-            borderRadius="4px"
+            alignItems="center"
+            gap="8px"
+            width="fit-content"
+            px="12px"
+            py="6px"
+            mx="auto"
+            borderRadius="8px"
+            backgroundColor={bgColor}
+            boxShadow={`0 2px 5px ${colors.primary[800]}`}
           >
-            {access === "admin" && <AdminPanelSettingsOutlinedIcon />}
-            {access === "manager" && <SecurityOutlinedIcon />}
-            {access === "user" && <LockOpenOutlinedIcon />}
-            <Typography color={colors.grey[100]} sx={{ ml: "5px" }}>
+            {icon}
+            <Typography color={colors.grey[100]} fontWeight="bold" textTransform="capitalize">
               {access}
             </Typography>
           </Box>
@@ -72,9 +76,10 @@ const Team = () => {
 
   return (
     <Box m="20px">
-      <Header title="TEAM" subtitle="Managing the Team Members" />
+      <Header title="TEAM" subtitle="Fraud Detection Team" />
+
       <Box
-        m="40px 0 0 0"
+        mt="40px"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -93,9 +98,12 @@ const Team = () => {
             borderTop: "none",
             backgroundColor: colors.blueAccent[700],
           },
+          "& .MuiCheckbox-root": {
+            color: `${colors.greenAccent[200]} !important`,
+          },
         }}
       >
-        <DataGrid 
+        <DataGrid
           rows={mockDataTeam}
           columns={columns}
           checkboxSelection
@@ -120,4 +128,5 @@ const Team = () => {
     </Box>
   );
 };
+
 export default Team;

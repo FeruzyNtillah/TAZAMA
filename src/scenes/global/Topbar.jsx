@@ -1,5 +1,5 @@
 import { useState, useContext } from "react";
-import { Box, IconButton, InputBase, useTheme, Menu, MenuItem } from "@mui/material";
+import { Box, IconButton, InputBase, useTheme, Menu, MenuItem, Badge } from "@mui/material";
 import { tokens } from "../../theme";
 import SearchIcon from "@mui/icons-material/Search";
 import NotificationsOutlinedIcon from "@mui/icons-material/NotificationsOutlined";
@@ -7,37 +7,48 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import LightModeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
 import { ColorModeContext } from "../../theme";
+import NotificationsPage from "./NotificationsPage";
 
 const Topbar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const colorMode = useContext(ColorModeContext);
 
-  // State to control the menu
+  // State for user menu
   const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
+  const userMenuOpen = Boolean(anchorEl);
+
+  // State for notifications menu
+  const [notificationsAnchorEl, setNotificationsAnchorEl] = useState(null);
+  const notificationsOpen = Boolean(notificationsAnchorEl);
+
+  // Sample notifications count (you can make this dynamic)
+  const [notificationsCount] = useState(3);
 
   // Handle clicking on the person icon
   const handlePersonClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // Close the menu
+  // Handle clicking on the notifications icon
+  const handleNotificationsClick = (event) => {
+    setNotificationsAnchorEl(event.currentTarget);
+  };
+
+  // Close all menus
   const handleClose = () => {
     setAnchorEl(null);
+    setNotificationsAnchorEl(null);
   };
 
   // Handle Account Settings action
   const handleAccountSettings = () => {
-    // For example, navigate to the account settings page
-    // You might use a router, like: navigate('/account-settings');
     console.log("Account Settings clicked");
     handleClose();
   };
 
   // Handle Logout action
   const handleLogout = () => {
-    // Add your logout logic here
     console.log("Logout clicked");
     handleClose();
   };
@@ -72,15 +83,48 @@ const Topbar = () => {
             <LightModeOutlinedIcon sx={{ color: colors.grey[900] }} />
           )}
         </IconButton>
-        <IconButton>
-          <NotificationsOutlinedIcon sx={{ color: colors.grey[100] }} />
+        
+        {/* Notifications Icon with Badge */}
+        <IconButton onClick={handleNotificationsClick}>
+          <Badge badgeContent={notificationsCount} color="error">
+            <NotificationsOutlinedIcon sx={{ color: colors.grey[100] }} />
+          </Badge>
         </IconButton>
+        
+        {/* Notifications Menu */}
+        <Menu
+          anchorEl={notificationsAnchorEl}
+          open={notificationsOpen}
+          onClose={handleClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+          transformOrigin={{ vertical: "top", horizontal: "right" }}
+          PaperProps={{
+            style: {
+              width: "400px",
+              maxWidth: "100%",
+              padding: 0,
+              backgroundColor: colors.primary[400],
+              boxShadow: theme.shadows[10],
+              borderRadius: "8px",
+              overflow: "visible",
+            }
+          }}
+          MenuListProps={{
+            style: {
+              padding: 0,
+            }
+          }}
+        >
+          <NotificationsPage />
+        </Menu>
+
+        {/* User Menu */}
         <IconButton onClick={handlePersonClick}>
           <PersonOutlinedIcon sx={{ color: colors.grey[100] }} />
         </IconButton>
         <Menu
           anchorEl={anchorEl}
-          open={open}
+          open={userMenuOpen}
           onClose={handleClose}
           anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
           transformOrigin={{ vertical: "top", horizontal: "right" }}

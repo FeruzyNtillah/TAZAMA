@@ -17,24 +17,14 @@ const Contacts = () => {
       flex: 1,
       cellClassName: "name-column--cell",
     },
-    { 
-      field: "age",
-      headerName: "Age",
-      type: "number",
-      headerAlign: "left",
-      align: "left",
-      width: 80,
-    },
-    { field: "phone", headerName: "Phone", flex: 1 },
     { field: "email", headerName: "Email", flex: 1 },
-    { field: "address", headerName: "Address", flex: 1.5 },
     { field: "city", headerName: "City", flex: 1 },
     { field: "zipCode", headerName: "Zip Code", flex: 1 },
   ];
 
   return (
     <Box m="20px">
-      <Header title="CONTACTS" subtitle="List of Contacts for Future Reference" />
+      <Header title="CONTACTS" subtitle="List of Contacts for Fraud Detection" />
       <Box
         m="40px 0 0 0"
         height="75vh"
